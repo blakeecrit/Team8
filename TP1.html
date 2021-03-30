@@ -1716,10 +1716,10 @@ cumsum(a)</code></pre>
 <div id="applied-exercise" class="section level3">
 <h3>Applied Exercise</h3>
 <div id="question-8" class="section level4">
-<h4>Question 8</h4>
+<h4><strong>Question 8</strong></h4>
 <p>In section 10.2.3, a formula for calculating the Proportion of Variance Explained (PVE) was given in Equation 10.8. We also saw that the PVE can be obtained using the <span class="math inline">\(\texttt{sdev}\)</span> output of the <span class="math inline">\(\texttt{prcomp()}\)</span> function.</p>
 <div id="equation-10.8" class="section level5">
-<h5>Equation 10.8</h5>
+<h5><strong>Equation 10.8</strong></h5>
 <p><span class="math inline">\(\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p} \phi_{jm} x_{ij})^{2} } { \sum_{j=1}^{p} \sum_{i=1}^{n} x^{2}_{ij}}\)</span></p>
 <p>On the <span class="math inline">\(\texttt{USArrests}\)</span> data, calculate PVE in two ways:</p>
 <ul>
@@ -1728,12 +1728,12 @@ cumsum(a)</code></pre>
 </ul>
 </div>
 <div id="method-1-solution" class="section level5">
-<h5>Method 1 Solution:</h5>
+<h5><strong>Method 1 Solution:</strong></h5>
 <p>Recall: Percent of Variance Explained = Variance explained / Total Variance</p>
 <ol style="list-style-type: decimal">
 <li>Calculate variance using standard deviation</li>
 </ol>
-<p>Note: The prcomp() function gives the standard deviation</p>
+<p><strong>Note:</strong> The prcomp() function gives the standard deviation.</p>
 <pre class="r"><code>pr.out = prcomp(USArrests , scale = TRUE)
 
 # Variance = SD^2
@@ -1756,11 +1756,11 @@ pve</code></pre>
 <pre><code>## [1] 0.62006039 0.24744129 0.08914080 0.04335752</code></pre>
 </div>
 <div id="method-2-solution" class="section level5">
-<h5>Method 2 Solution:</h5>
+<h5><strong>Method 2 Solution:</strong></h5>
 <ol style="list-style-type: decimal">
 <li>Find loadings using prcomp() function</li>
 </ol>
-<p>Note: Loadings are found using “$roatation” from the prcomp() function</p>
+<p><strong>Note:</strong> Loadings are found using “$roatation” from the prcomp() function</p>
 <pre class="r"><code>pr.loadings = pr.out$rotation
 pr.loadings</code></pre>
 <pre><code>##                 PC1        PC2        PC3         PC4
@@ -1771,7 +1771,7 @@ pr.loadings</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Scale data and convert data to matrix</li>
 </ol>
-<p>Note: %*% means matrix multiplication</p>
+<p><strong>Note:</strong> %*% means matrix multiplication</p>
 <pre class="r"><code>scaled.data = scale(USArrests)
 scaled.matrix = as.matrix(scaled.data)
 head(scaled.matrix) # view first 6 rows of data</code></pre>
@@ -1787,7 +1787,7 @@ head(scaled.matrix) # view first 6 rows of data</code></pre>
 </ol>
 <pre class="r"><code>var.sum &lt;- sum(apply(scaled.matrix^2 , 2, sum)) # 2 indicates applying function to columns</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Matrix multiplication and divide by total variance Note: %*% means matrix multiplication</li>
+<li>Matrix multiplication and divide by total variance <strong>Note:</strong> %*% means matrix multiplication</li>
 </ol>
 <pre class="r"><code>pve = apply((scaled.matrix %*% pr.loadings)^2, 2, sum) / var.sum
 pve</code></pre>
