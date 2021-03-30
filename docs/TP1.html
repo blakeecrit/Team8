@@ -1717,23 +1717,22 @@ cumsum(a)</code></pre>
 <h3>Applied Exercise</h3>
 <div id="question-8" class="section level4">
 <h4><strong>Question 8</strong></h4>
-<p>In section 10.2.3, a formula for calculating the Proportion of Variance Explained (PVE) was given in Equation 10.8. We also saw that the PVE can be obtained using the <span class="math inline">\(\texttt{sdev}\)</span> output of the <span class="math inline">\(\texttt{prcomp()}\)</span> function.</p>
+<p>In section 10.2.3, a formula for calculating the Proportion of Variance Explained (PVE) was given in Equation 10.8. We also saw that the PVE can be obtained using the <span class="math inline">\(\texttt{sdev}\)</span> output of the <span class="math inline">\(\texttt{prcomp()}\)</span> function. <br> <br></p>
 <div id="equation-10.8" class="section level5">
 <h5><strong>Equation 10.8</strong></h5>
-<p><span class="math inline">\(\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p} \phi_{jm} x_{ij})^{2} } { \sum_{j=1}^{p} \sum_{i=1}^{n} x^{2}_{ij}}\)</span></p>
+<p><span class="math inline">\(\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p} \phi_{jm} x_{ij})^{2} } { \sum_{j=1}^{p} \sum_{i=1}^{n} x^{2}_{ij}}\)</span> - this gives the PVE of the <em>m</em>th principal component.</p>
 <p>On the <span class="math inline">\(\texttt{USArrests}\)</span> data, calculate PVE in two ways:</p>
 <ul>
 <li><p>Method 1: Using the <span class="math inline">\(\texttt{sdev}\)</span> output of the <span class="math inline">\(\texttt{prcomp()}\)</span> function, as we done in Section 10.2.3.</p></li>
-<li><p>Method 2: By applying Equation 10.8 directly. That is, use the <span class="math inline">\(\texttt{prcomp()}\)</span> function to compute the principal component loadings. Then, use those loadings in Equation 10.8 to obtain the PVE.</p></li>
+<li><p>Method 2: By applying Equation 10.8 directly. That is, use the <span class="math inline">\(\texttt{prcomp()}\)</span> function to compute the principal component loadings. Then, use those loadings in Equation 10.8 to obtain the PVE. <br> <br></p></li>
 </ul>
 </div>
 <div id="method-1-solution" class="section level5">
 <h5><strong>Method 1 Solution:</strong></h5>
-<p>Recall: Percent of Variance Explained = Variance explained / Total Variance</p>
+<p><strong>Recall:</strong> Percent of Variance Explained = Variance explained / Total Variance</p>
 <ol style="list-style-type: decimal">
-<li>Calculate variance using standard deviation</li>
+<li>Calculate variance using standard deviation <strong>Note:</strong> The <span class="math inline">\(\texttt{prcomp()}\)</span> function gives the standard deviation.</li>
 </ol>
-<p><strong>Note:</strong> The prcomp() function gives the standard deviation.</p>
 <pre class="r"><code>pr.out = prcomp(USArrests , scale = TRUE)
 
 # Variance = SD^2
@@ -1754,13 +1753,14 @@ pr.varSum # sum of principal component variances</code></pre>
 pve = pr.var/pr.varSum
 pve</code></pre>
 <pre><code>## [1] 0.62006039 0.24744129 0.08914080 0.04335752</code></pre>
+<p><br></p>
 </div>
 <div id="method-2-solution" class="section level5">
 <h5><strong>Method 2 Solution:</strong></h5>
 <ol style="list-style-type: decimal">
-<li>Find loadings using prcomp() function</li>
+<li>Find loadings using <span class="math inline">\(\texttt{prcomp()}\)</span> function</li>
 </ol>
-<p><strong>Note:</strong> Loadings are found using “$roatation” from the prcomp() function</p>
+<p><strong>Note:</strong> Loadings are found using “$rotation” from the <span class="math inline">\(\texttt{prcomp()}\)</span> function.</p>
 <pre class="r"><code>pr.loadings = pr.out$rotation
 pr.loadings</code></pre>
 <pre><code>##                 PC1        PC2        PC3         PC4
@@ -1769,9 +1769,8 @@ pr.loadings</code></pre>
 ## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
 ## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Scale data and convert data to matrix</li>
+<li>Scale data and convert data to matrix <strong>Note:</strong> <span class="math inline">\(\texttt{%*%}\)</span> means matrix multiplication</li>
 </ol>
-<p><strong>Note:</strong> %*% means matrix multiplication</p>
 <pre class="r"><code>scaled.data = scale(USArrests)
 scaled.matrix = as.matrix(scaled.data)
 head(scaled.matrix) # view first 6 rows of data</code></pre>
@@ -1787,7 +1786,7 @@ head(scaled.matrix) # view first 6 rows of data</code></pre>
 </ol>
 <pre class="r"><code>var.sum &lt;- sum(apply(scaled.matrix^2 , 2, sum)) # 2 indicates applying function to columns</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Matrix multiplication and divide by total variance <strong>Note:</strong> %*% means matrix multiplication</li>
+<li>Matrix multiplication and divide by total variance <strong>Note:</strong> <span class="math inline">\(\texttt{%*% }\)</span> means matrix multiplication</li>
 </ol>
 <pre class="r"><code>pve = apply((scaled.matrix %*% pr.loadings)^2, 2, sum) / var.sum
 pve</code></pre>
