@@ -116,22 +116,23 @@ cumsum(a)
 
 #### **Question 8**
 In section 10.2.3, a formula for calculating the Proportion of Variance Explained (PVE) was given in Equation 10.8. We also saw that the PVE can be obtained using the $\texttt{sdev}$ output of the $\texttt{prcomp()}$ function.
+<br> <br>
 
 ##### **Equation 10.8**
-$\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p} \phi_{jm} x_{ij})^{2} } { \sum_{j=1}^{p} \sum_{i=1}^{n} x^{2}_{ij}}$
+$\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p} \phi_{jm} x_{ij})^{2} } { \sum_{j=1}^{p} \sum_{i=1}^{n} x^{2}_{ij}}$ - this gives the PVE of the *m*th principal component.
 
 On the $\texttt{USArrests}$ data, calculate PVE in two ways:
 
 - Method 1: Using the $\texttt{sdev}$ output of the $\texttt{prcomp()}$ function, as we done in Section 10.2.3.
 
 - Method 2: By applying Equation 10.8 directly. That is, use the $\texttt{prcomp()}$ function to compute the principal component loadings. Then, use those loadings in Equation 10.8 to obtain the PVE.
+<br> <br>
 
 ##### **Method 1 Solution:**
-Recall: Percent of Variance Explained = Variance explained / Total Variance
+**Recall:** Percent of Variance Explained = Variance explained / Total Variance
 
 1. Calculate variance using standard deviation
-  
-**Note:** The prcomp() function gives the standard deviation.
+**Note:** The $\texttt{prcomp()}$ function gives the standard deviation.
 ```{r}
 pr.out = prcomp(USArrests , scale = TRUE)
 
@@ -148,25 +149,24 @@ pr.varSum # sum of principal component variances
 ```
     
 3. Divide variances by total variance (Step 1 / Step 2)
-
 ```{r}
 # Divide each principal component variance by total variance 
 pve = pr.var/pr.varSum
 pve
 ```
+<br>
 
 ##### **Method 2 Solution:**
-1. Find loadings using prcomp() function
+1. Find loadings using $\texttt{prcomp()}$ function
   
-**Note:** Loadings are found using "$roatation" from the prcomp() function 
+**Note:** Loadings are found using "\$rotation" from the $\texttt{prcomp()}$ function.
 ```{r}
 pr.loadings = pr.out$rotation
 pr.loadings
 ```
 
 2. Scale data and convert data to matrix
-  
-**Note:** %*% means matrix multiplication
+**Note:** $\texttt{%*%}$ means matrix multiplication
 ``` {r}
 scaled.data = scale(USArrests)
 scaled.matrix = as.matrix(scaled.data)
@@ -180,7 +180,7 @@ var.sum <- sum(apply(scaled.matrix^2 , 2, sum)) # 2 indicates applying function 
 ```
 
 4. Matrix multiplication and divide by total variance
-**Note:** %*% means matrix multiplication
+**Note:** $\texttt{%*%}$ means matrix multiplication
   
 ```{r}
 pve = apply((scaled.matrix %*% pr.loadings)^2, 2, sum) / var.sum
